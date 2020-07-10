@@ -1,12 +1,12 @@
 package com.cpedroza.Tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.cpedroza.Domains.Item;
 import com.cpedroza.OrderService.OrderService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyTests {
 
