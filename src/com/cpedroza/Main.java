@@ -13,6 +13,12 @@ public class Main {
 //            candidates may take a list of strings as input
 //        • Add unit tests that validate your code
 
+//    Step 2: Simple offer
+//        • The shop decides to introduce two new offers
+//        • buy one get one free on Apples
+//        • 3 for the price of 2 on Oranges
+//        • Update your functions & unit tests accordingly
+
     public static void main(String[] args) {
         OrderService os = new OrderService();
 

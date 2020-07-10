@@ -8,8 +8,18 @@ public class OrderService {
 
     public OrderService(){}
 
+
+    /**
+     * Returns the total cost calculated from the user inputted items
+     * Calls findOffers to before going through userItems
+     * Does not check for lower case matches
+     *
+     * @return      totalCost
+     */
     public double calculateUserTotal(){
         double totalCost = 0.0;
+
+        findOffers();
 
         for (String item : userItems){
             if (inv.containsKey(item)){
@@ -19,7 +29,7 @@ public class OrderService {
             }
         }
 
-        return totalCost;
+        return Math.round(totalCost * 100.0) / 100.0;
     }
 
     public void getUserOrder(){
@@ -36,6 +46,29 @@ public class OrderService {
             userItems.add(input);
         }
     }
+
+    public void findOffers(){
+        int countApples = Collections.frequency(userItems, "Apple");
+        int countOranges = Collections.frequency(userItems, "Orange");
+
+        System.out.printf("YEET %d and %d\n", countApples, countOranges);
+        while (countApples >= 2){
+            //apply the bogo by removing an apple entry from userItems
+            userItems.remove("Apple");
+            System.out.println("Apple BOGO offer found!");
+
+            countApples -= 2;
+        }
+
+        while (countOranges >= 3){
+            //apply the bogo by removing an apple entry from userItems
+            userItems.remove("Orange");
+            System.out.println("Orange 3 for the price of 2 offer found!");
+
+            countOranges -= 3;
+        }
+    }
+
 
     public void addToInventory(String itemName, double itemPrice) {
         inv.put(itemName, itemPrice);
