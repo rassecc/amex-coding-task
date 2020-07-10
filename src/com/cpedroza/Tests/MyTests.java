@@ -1,64 +1,75 @@
-package com.cpedroza;
+package com.cpedroza.Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.cpedroza.OrderService.OrderService;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 public class MyTests {
 
     @Test
     public void calculateUserTotal_TwoUserItems_Success() {
         OrderService os = new OrderService();
+        ArrayList<String> userItems = new ArrayList<>();
 
         os.addToInventory("Apple", 0.6);
         os.addToInventory("Orange", 0.25);
 
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
+        userItems.add("Apple");
+        userItems.add("Apple");
 
-        assertEquals(0.6, os.calculateUserTotal(), "0.5 * 2 = 1.0");
+        assertEquals(0.6, os.calculateUserTotal(userItems), "0.5 * 2 = 1.0");
     }
 
     @Test
     public void calculateUserTotal_ItemNameInLowerCase_Fail() {
         OrderService os = new OrderService();
+        ArrayList<String> userItems = new ArrayList<>();
+
 
         os.addToInventory("Apple", 0.6);
 
-        os.addToUserItems("apple");
+        userItems.add("apple");
 
-        assertEquals(0.0, os.calculateUserTotal(), "Apple != apple, calculated no total");
+        assertEquals(0.0, os.calculateUserTotal(userItems), "Apple != apple, calculated no total");
     }
 
     @Test
     public void calculateUserTotal_AppleOfferFound_Success() {
         OrderService os = new OrderService();
+        ArrayList<String> userItems = new ArrayList<>();
+
 
         os.addToInventory("Apple", 0.6);
 
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
+        userItems.add("Apple");
+        userItems.add("Apple");
+        userItems.add("Apple");
+        userItems.add("Apple");
+        userItems.add("Apple");
 
-        assertEquals(1.8, os.calculateUserTotal(), "2 BOGOs, 1.0 + 0.5");
+        assertEquals(1.8, os.calculateUserTotal(userItems), "2 BOGOs, 1.0 + 0.5");
     }
 
     @Test
     public void calculateUserTotal_MultipleOffersFound_Success() {
         OrderService os = new OrderService();
+        ArrayList<String> userItems = new ArrayList<>();
+
 
         os.addToInventory("Apple", 0.6);
         os.addToInventory("Orange", 0.25);
 
 
-        os.addToUserItems("Apple");
-        os.addToUserItems("Apple");
-        os.addToUserItems("Orange");
-        os.addToUserItems("Orange");
-        os.addToUserItems("Orange");
+        userItems.add("Apple");
+        userItems.add("Apple");
+        userItems.add("Orange");
+        userItems.add("Orange");
+        userItems.add("Orange");
 
-        assertEquals(1.1, os.calculateUserTotal(), "Apples : 0.6 + Oranges : 0.5");
+        assertEquals(1.1, os.calculateUserTotal(userItems), "Apples : 0.6 + Oranges : 0.5");
     }
 
     @Test

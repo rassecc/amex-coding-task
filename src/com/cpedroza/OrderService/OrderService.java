@@ -1,13 +1,11 @@
-package com.cpedroza;
+package com.cpedroza.OrderService;
 
 import java.util.*;
 
 public class OrderService {
     private Map<String, Double> inv = new HashMap<>();
-    private ArrayList<String> userItems = new ArrayList<>();
 
     public OrderService(){}
-
 
     /**
      * Returns the total cost calculated from the user inputted items
@@ -16,10 +14,10 @@ public class OrderService {
      *
      * @return      totalCost
      */
-    public double calculateUserTotal(){
+    public double calculateUserTotal(ArrayList<String> userItems){
         double totalCost = 0.0;
 
-        findOffers();
+        findOffers(userItems);
 
         for (String item : userItems){
             if (inv.containsKey(item)){
@@ -32,26 +30,11 @@ public class OrderService {
         return Math.round(totalCost * 100.0) / 100.0;
     }
 
-    public void getUserOrder(){
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter items you want to buy or enter q to quit:  ");
-        String input = in.nextLine();
 
-        if (input.contains(",")){
-            //list seperated by ,
-            userItems = new ArrayList<>(Arrays.asList(input.split("\\s*,\\s*")));
-        }
-        else {
-            //single item
-            userItems.add(input);
-        }
-    }
-
-    public void findOffers(){
+    public void findOffers(ArrayList<String> userItems){
         int countApples = Collections.frequency(userItems, "Apple");
         int countOranges = Collections.frequency(userItems, "Orange");
 
-        System.out.printf("YEET %d and %d\n", countApples, countOranges);
         while (countApples >= 2){
             //apply the bogo by removing an apple entry from userItems
             userItems.remove("Apple");
@@ -72,10 +55,6 @@ public class OrderService {
 
     public void addToInventory(String itemName, double itemPrice) {
         inv.put(itemName, itemPrice);
-    }
-
-    public void addToUserItems(String itemName) {
-        userItems.add(itemName);
     }
 
     public ArrayList<String> getListOfInventoryItems(){
