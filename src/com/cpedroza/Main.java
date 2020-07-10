@@ -1,5 +1,6 @@
 package com.cpedroza;
 
+import com.cpedroza.Domains.Item;
 import com.cpedroza.NotificationService.OrderListenerServiceImpl;
 import com.cpedroza.OrderService.OrderService;
 
@@ -28,11 +29,14 @@ public class Main {
 //        • Build a service that listens for when orders are complete and sends a notification to the customer regarding its status and estimated delivery time
 //        • The Mail service subscribes to events from the Orders service and publishes an appropriate event that the customer (you) is able to read from the terminal
 
+//    Step 4: Limited Stock
+//        • Stock can now run out, this means that customers need to be notified that their order failed
+
     public static void main(String[] args) {
         OrderService os = new OrderService();
 
-        os.addToInventory("Apple", 0.6);
-        os.addToInventory("Orange", 0.25);
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
+        os.addToInventory("Orange", new Item("Orange", 0.25, 6));
 
         OrderListenerServiceImpl ols = new OrderListenerServiceImpl();
         //will notify customer of order received
@@ -53,11 +57,16 @@ public class Main {
                 userItems.add(input);
             }
 
-            System.out.printf("\nTotal cost of your cart came out to be : $%.2f", os.calculateUserTotal(userItems));
-            ols.notify(String.format("\nOrder received. Order will be complete at: %s", LocalTime.now().plusMinutes(userItems.size()).toString()));
+            double costOfItems = os.calculateUserTotal(userItems);
+
+            if (costOfItems != 0.00){
+                System.out.printf("\nTotal cost of your cart came out to be : $%.2f", costOfItems);
+                ols.notify(String.format("\nOrder received. Order will be complete at: %s", LocalTime.now().plusMinutes(userItems.size()).toString()));
+            }
             System.out.printf("\nEnter items you want to buy or enter q to quit: ");
 
             input = in.nextLine();
+            userItems.clear();
         }
 
         System.out.println("thanks for shopping!");

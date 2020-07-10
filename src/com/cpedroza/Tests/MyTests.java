@@ -2,6 +2,7 @@ package com.cpedroza.Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.cpedroza.Domains.Item;
 import com.cpedroza.OrderService.OrderService;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,8 @@ public class MyTests {
         OrderService os = new OrderService();
         ArrayList<String> userItems = new ArrayList<>();
 
-        os.addToInventory("Apple", 0.6);
-        os.addToInventory("Orange", 0.25);
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
+        os.addToInventory("Orange", new Item("Orange", 0.25,  6));
 
         userItems.add("Apple");
         userItems.add("Apple");
@@ -28,8 +29,7 @@ public class MyTests {
         OrderService os = new OrderService();
         ArrayList<String> userItems = new ArrayList<>();
 
-
-        os.addToInventory("Apple", 0.6);
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
 
         userItems.add("apple");
 
@@ -41,8 +41,7 @@ public class MyTests {
         OrderService os = new OrderService();
         ArrayList<String> userItems = new ArrayList<>();
 
-
-        os.addToInventory("Apple", 0.6);
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
 
         userItems.add("Apple");
         userItems.add("Apple");
@@ -58,10 +57,8 @@ public class MyTests {
         OrderService os = new OrderService();
         ArrayList<String> userItems = new ArrayList<>();
 
-
-        os.addToInventory("Apple", 0.6);
-        os.addToInventory("Orange", 0.25);
-
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
+        os.addToInventory("Orange", new Item("Orange", 0.25, 6));
 
         userItems.add("Apple");
         userItems.add("Apple");
@@ -76,8 +73,8 @@ public class MyTests {
     public void addToInventory_AddTwo_Success() {
         OrderService os = new OrderService(); // MyClass is tested
 
-        os.addToInventory("Apple", 0.6);
-        os.addToInventory("Orange", 0.25);
+        os.addToInventory("Apple", new Item("Apple", 0.6, 5));
+        os.addToInventory("Orange", new Item("Orange", 0.25, 6));
 
         assertEquals(2, os.getListOfInventoryItems().size());
     }
